@@ -49,3 +49,4 @@ class Kernel extends HttpKernel
                 \App\Http\Middleware\ApiPrefixMiddleware::class,
         ],
     ];
+}
