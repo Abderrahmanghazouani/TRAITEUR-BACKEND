@@ -68,7 +68,7 @@ class AnnonceController extends Controller
     public function update(AnnonceRequest $request, $id)
     {
         try {
-            // Find product
+            // Find annonce
             $annonce = Annonce::find($id);
             if (!$annonce) {
                 return response()->json([

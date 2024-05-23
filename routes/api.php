@@ -11,7 +11,7 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
 });
 
 Route::get('annonces', [AnnonceController::class, 'index']);
-Route::get('annonce/{id}', [AnnonceController::class, 'show']);
+Route::get('annonces/{id}', [AnnonceController::class, 'show']);
 Route::post('annonces', [AnnonceController::class, 'store']);
 Route::put('annonceupdate/{id}', [AnnonceController::class, 'update']);
 Route::delete('annoncedelete/{id}', [AnnonceController::class, 'destroy']);
