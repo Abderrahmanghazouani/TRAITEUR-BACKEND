@@ -6,6 +6,7 @@ use Illuminate\Foundation\Http\FormRequest;
 
 class AnnonceRequest extends FormRequest
 {
+
     /**
      * Determine if the user is authorized to make this request.
      */
@@ -55,7 +56,10 @@ class AnnonceRequest extends FormRequest
         } else {
             return [
                 'titre.required' => 'Titre is required!',
-                'description.required' => 'Descritpion is required!'
+                'date.required' => 'Date is required!',
+                'description.required' => 'Descritpion is required!',
+                'image.required' => 'Image is required!',
+
             ];
         }
     }

@@ -26,12 +26,12 @@ class AnnonceController extends Controller
         try {
             $imageName = Str::random(32) . "." . $request->image->getClientOriginalExtension();
 
-            // Create Product
+            // Create Annonce
             Annonce::create([
-                'name' => $request->titre,
+                'titre' => $request->titre,
                 'date' => $request->date,
+                'description' => $request->description,
                 'image' => $imageName,
-                'description' => $request->description
             ]);
 
             // Save Image in Storage folder
@@ -76,8 +76,9 @@ class AnnonceController extends Controller
                 ], 404);
             }
 
-            //echo "request : $request->image";
+
             $annonce->titre = $request->titre;
+            $annonce->date = $request->date;
             $annonce->description = $request->description;
 
             if ($request->image) {
