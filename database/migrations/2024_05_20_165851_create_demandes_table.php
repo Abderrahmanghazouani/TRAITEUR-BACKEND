@@ -16,10 +16,10 @@ class CreateDemandesTable extends Migration
         Schema::create('demandes', function (Blueprint $table) {
             $table->id('idDemande');
             $table->unsignedBigInteger('client_id');
-            $table->foreign('client_id')->references('idClient')->on('clients')->onDelete('cascade');
+            $table->foreignId('client_id')->constrained('clients', 'idClient');
             $table->string('description');
             $table->string('lieu');
-            $table->dateTime('date_creation');
+            $table->date('date_creation');
             $table->integer('nombre_personne');
             $table->string('type_de_celebration');
             $table->timestamps();
