@@ -8,11 +8,16 @@ use Illuminate\Http\Request;
 
 class DemandeController extends Controller
 {
+   
     public function index()
     {
-        $demandes = Demande::all();
+        // Eager load the related client information along with demandes
+        $demandes = Demande::with('client:idClient,nom,numero,email')
+                            ->get();
+
         return response()->json($demandes);
     }
+
 
     public function destroy($id)
     {

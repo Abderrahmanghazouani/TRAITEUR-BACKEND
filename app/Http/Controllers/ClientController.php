@@ -9,11 +9,19 @@ use Illuminate\Support\Facades\Log;
 
 class ClientController extends Controller
 {
+    
     public function index()
     {
-        $clients = Client::with('demandes')->get();
+        // Eager load the 'demandes' relationship and select only the required fields from clients
+        $clients = Client::with('demandes:idDemande,description,lieu,date_creation,nombre_personne,type_de_celebration')
+            ->select('idClient', 'nom', 'email', 'numero')
+            ->get();
+    
         return response()->json($clients);
     }
+    
+    
+    
 
     public function destroy($id)
     {
