@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
@@ -13,7 +14,9 @@ class DemandeRequest extends FormRequest
     public function rules()
     {
         return [
-            'client_id' => 'required|exists:clients,idClient',
+            'nom' => 'required|string|max:255',
+            'numero' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
             'description' => 'required|string|max:255',
             'lieu' => 'required|string|max:255',
             'date_creation' => 'required|date',

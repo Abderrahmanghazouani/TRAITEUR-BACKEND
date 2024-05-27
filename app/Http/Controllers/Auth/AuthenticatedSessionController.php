@@ -1,38 +1,39 @@
 <?php
-
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AuthenticatedSessionController extends Controller
 {
-    /**
-     * Handle an incoming authentication request.
-     */
-    public function store(LoginRequest $request): Response
-    {
-        $request->authenticate();
+public function store(Request $request)
+{
+$request->validate([
+'email' => 'required|email',
+'password' => 'required',
+]);
 
-        $request->session()->regenerate();
+if (!Auth::attempt($request->only('email', 'password'))) {
+throw ValidationException::withMessages([
+'email' => ['Les informations d\'identification fournies sont incorrectes.'],
+]);
+}
 
-        return response()->noContent();
-    }
+$request->session()->regenerate();
 
-    /**
-     * Destroy an authenticated session.
-     */
-    public function destroy(Request $request): Response
-    {
-        Auth::guard('web')->logout();
+return response()->json(['message' => 'Connexion réussie.']);
+}
 
-        $request->session()->invalidate();
+public function destroy(Request $request)
+{
+Auth::guard('web')->logout();
 
-        $request->session()->regenerateToken();
+$request->session()->invalidate();
 
-        return response()->noContent();
-    }
+$request->session()->regenerateToken();
+
+return response()->json(['message' => 'Déconnexion réussie.']);
+}
 }

@@ -1,57 +1,49 @@
 <?php
-
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ClientRequest;
 use App\Models\Client;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class ClientController extends Controller
 {
-    
-    public function index()
-    {
-        // Eager load the 'demandes' relationship and select only the required fields from clients
-        $clients = Client::with('demandes:idDemande,description,lieu,date_creation,nombre_personne,type_de_celebration')
-            ->select('idClient', 'nom', 'email', 'numero')
-            ->get();
-    
-        return response()->json($clients);
-    }
-    
-    
-    
+public function index()
+{
+$clients = Client::with('demandes:idDemande,description,lieu,date_creation,nombre_personne,type_de_celebration')
+->select('idClient', 'nom', 'email', 'numero')
+->get();
 
-    public function destroy($id)
-    {
-        $client = Client::findOrFail($id);
-        $client->delete();
-        return response()->json(null, 204);
-    }
+return response()->json($clients);
+}
 
+public function show($id)
+{
+$client = Client::find($id);
+if (!$client) {
+return response()->json(['message' => 'Client Not Found.'], 404);
+}
 
-    public function store(ClientRequest $request)
-    {
-        try {
-            // Validate the incoming request data
-            Log::info('Validating request data...');
-            $validatedData = $request->validated();
-            Log::info('Validation successful', $validatedData);
+return response()->json(['client' => $client], 200);
+}
 
-            // Create a new client using the validated data
-            Log::info('Creating client...');
-            $client = Client::create($validatedData);
-            Log::info('Client created successfully', ['client' => $client]);
+public function store(ClientRequest $request)
+{
+try {
+$client = Client::create($request->validated());
+return response()->json(['message' => "Client successfully created.", 'client' => $client], 201);
+} catch (\Exception $e) {
+return response()->json(['message' => "Something went really wrong!"], 500);
+}
+}
 
-            // Return a JSON response with the newly created client and a 201 status code
-            return response()->json($client, 201);
-        } catch (\Exception $e) {
-            // Log the exception message for debugging
-            Log::error('Client creation failed: '.$e->getMessage(), ['exception' => $e]);
+public function destroy($id)
+{
+$client = Client::find($id);
+if (!$client) {
+return response()->json(['message' => 'Client Not Found.'], 404);
+}
 
-            // Return a JSON response with an error message and a 500 status code
-            return response()->json(['message' => 'Failed to create client.'], 500);
-        }
-    }
+$client->delete();
+return response()->json(['message' => "Client successfully deleted."], 200);
+}
 }

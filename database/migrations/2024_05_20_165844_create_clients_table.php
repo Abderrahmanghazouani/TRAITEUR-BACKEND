@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateClientsTable extends Migration
+return new class extends Migration
 {
     /**
      * Run the migrations.
@@ -31,5 +31,5 @@ class CreateClientsTable extends Migration
     {
         Schema::dropIfExists('clients');
     }
-}
+};
 
