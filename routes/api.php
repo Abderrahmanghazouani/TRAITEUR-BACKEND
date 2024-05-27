@@ -14,8 +14,8 @@ Route::middleware('api')->group(function () {
     Route::get('/demandes', [DemandeController::class, 'index']);
     Route::post('/demandes', [DemandeController::class, 'store']);
     Route::delete('/demandes/{id}', [DemandeController::class, 'destroy']);
-});
 
+});
 
 Route::get('annonces', [AnnonceController::class, 'index']);
 Route::get('annonces/{id}', [AnnonceController::class, 'show']);
