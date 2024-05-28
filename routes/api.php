@@ -21,8 +21,6 @@ Route::delete('demandes/{id}', [DemandeController::class, 'destroy']);
 
 
 
-
-
 Route::get('annonces', [AnnonceController::class, 'index']);
 Route::get('annonces/{id}', [AnnonceController::class, 'show']);
 Route::post('annonces', [AnnonceController::class, 'store']);
@@ -32,4 +30,3 @@ Route::delete('annoncedelete/{id}', [AnnonceController::class, 'destroy']);
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
-

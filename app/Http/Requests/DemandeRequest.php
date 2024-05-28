@@ -14,9 +14,7 @@ class DemandeRequest extends FormRequest
     public function rules()
     {
         return [
-            'nom' => 'required|string|max:255',
-            'numero' => 'required|string|max:255',
-            'email' => 'required|email|max:255',
+            'client_id' => 'required|exists:clients,idClient',
             'description' => 'required|string|max:255',
             'lieu' => 'required|string|max:255',
             'date_creation' => 'required|date',
@@ -25,3 +23,4 @@ class DemandeRequest extends FormRequest
         ];
     }
 }
+

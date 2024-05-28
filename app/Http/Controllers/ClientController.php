@@ -28,13 +28,14 @@ return response()->json(['client' => $client], 200);
 
 public function store(ClientRequest $request)
 {
-try {
-$client = Client::create($request->validated());
-return response()->json(['message' => "Client successfully created.", 'client' => $client], 201);
-} catch (\Exception $e) {
-return response()->json(['message' => "Something went really wrong!"], 500);
+    try {
+        $client = Client::create($request->validated());
+        return response()->json(['message' => 'Client créé avec succès', 'client' => $client], 201);
+    } catch (\Exception $e) {
+        return response()->json(['message' => 'Erreur lors de la création du client'], 500);
+    }
 }
-}
+
 
 public function destroy($id)
 {
