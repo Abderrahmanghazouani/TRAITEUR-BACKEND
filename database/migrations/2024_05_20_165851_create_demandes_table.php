@@ -19,7 +19,7 @@ return new class extends Migration
             $table->foreign('client_id')->references('idClient')->on('clients')->onDelete('cascade');
             $table->string('description');
             $table->string('lieu');
-            $table->dateTime('date_creation');
+            $table->date('date_creation');
             $table->integer('nombre_personne');
             $table->string('type_de_celebration');
             $table->timestamps();
